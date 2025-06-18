@@ -6,6 +6,8 @@ from PySide6.QtWidgets import (QApplication, QDialog, QLayout, QGridLayout,
                                QMessageBox, QGroupBox, QSpinBox, QSlider,
                                QProgressBar, QDial, QDialogButtonBox,
                                QComboBox, QLabel, QMainWindow)
+from modules import minecraft, MyWidget, writing
+
 
 class ApplicationFrame(QtWidgets.QWidget):
     def __init__(self):
@@ -13,6 +15,7 @@ class ApplicationFrame(QtWidgets.QWidget):
         # self.button = QtWidgets.QPushButton("Next Window")
 
         self._widgets = []
+        self._widgets = [minecraft.Minecraft(),writing.Writing(),MyWidget.MyWidget()]
         self.curr_page = 0
 
         self.create_group_box()
@@ -53,14 +56,14 @@ class ApplicationFrame(QtWidgets.QWidget):
     def create_group_box(self):
         self._group_box = QGroupBox("Pages")
 
-        self._widgets.append(Minecraft())
-        self._widgets.append(Writing())
-        self._widgets.append(MyWidget())
+        # self._widgets.append(minecraft.Minecraft())
+        # self._widgets.append(writing.Writing())
+        # self._widgets.append(MyWidget.MyWidget())
 
-        self._widgets.append(QSpinBox())
-        self._widgets.append(QSlider())
-        self._widgets.append(QDial())
-        self._widgets.append(QProgressBar())
+        # self._widgets.append(QSpinBox())
+        # self._widgets.append(QSlider())
+        # self._widgets.append(QDial())
+        # self._widgets.append(QProgressBar())
         count = len(self._widgets)
 
         self._pages_layout = QGridLayout()
@@ -92,47 +95,9 @@ class ApplicationFrame(QtWidgets.QWidget):
         # close_button.clicked.connect(self.close)
         # help_button.clicked.connect(self.show_help)
 
-class MyWidget(QtWidgets.QWidget):
-    def __init__(self):
-        super().__init__()
-
-        self.hello = ["Hallo Welt", "Hei maailma", "Hola Mundo", "Привет мир"]
-
-        self.button = QtWidgets.QPushButton("Click me!")
-        self.text = QtWidgets.QLabel("Hello World",
-                                    alignment=QtCore.Qt.AlignCenter)
-
-        self.layout = QtWidgets.QVBoxLayout(self)
-        self.layout.addWidget(self.text)
-        self.layout.addWidget(self.button)
-
-        self.button.clicked.connect(self.magic)
-
-    @QtCore.Slot()
-    def magic(self):
-        self.text.setText(random.choice(self.hello))
-
-class Minecraft(QtWidgets.QWidget):
-    def __init__(self):
-        super().__init__()
-
-        self.text = QtWidgets.QLabel("Minecraft",
-                                     alignment=QtCore.Qt.AlignCenter)
 
 
-        self.layout = QtWidgets.QVBoxLayout(self)
-        self.layout.addWidget(self.text)
 
-class Writing(QtWidgets.QWidget):
-    def __init__(self):
-        super().__init__()
-
-        self.text = QtWidgets.QLabel("Writing",
-                                     alignment=QtCore.Qt.AlignCenter)
-
-
-        self.layout = QtWidgets.QVBoxLayout(self)
-        self.layout.addWidget(self.text)
 
 if __name__ == "__main__":
 
